@@ -1,13 +1,12 @@
 plugins {
     scala
+    jacoco
     application
 }
 
 val scalaLibraryVersion = "2.13.12"
 
-repositories {
-    mavenCentral()
-}
+val mavenCentral = repositories.mavenCentral()
 
 dependencies {
     implementation("org.scala-lang:scala-library:${scalaLibraryVersion}")
@@ -25,6 +24,10 @@ tasks.test {
             events("passed", "skipped", "failed")
         }
     }
+    finalizedBy(tasks.jacocoTestReport)
+}
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
 }
 
 application {
