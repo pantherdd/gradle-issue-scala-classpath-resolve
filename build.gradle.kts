@@ -7,6 +7,10 @@ plugins {
 val scalaLibraryVersion = "2.13.12"
 
 val mavenCentral = repositories.mavenCentral()
+configurations.all {
+    val configurationName = name
+    mavenCentral.content { onlyForConfigurations(configurationName) }
+}
 
 dependencies {
     implementation("org.scala-lang:scala-library:${scalaLibraryVersion}")
